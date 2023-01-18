@@ -29,8 +29,12 @@ class Ui_MainWindow(object):
         self.open_files.setObjectName("open_files")
         self.open_folder = QtGui.QAction(MainWindow)
         self.open_folder.setObjectName("open_folder")
+        self.exit_app = QtGui.QAction(MainWindow)
+        self.exit_app.setObjectName("exit_app")
         self.file.addAction(self.open_files)
         self.file.addAction(self.open_folder)
+        self.file.addSeparator()
+        self.file.addAction(self.exit_app)
         self.menubar.addAction(self.file.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -42,3 +46,4 @@ class Ui_MainWindow(object):
         self.file.setTitle(_translate("MainWindow", "Файл"))
         self.open_files.setText(_translate("MainWindow", "Октрыть файлы..."))
         self.open_folder.setText(_translate("MainWindow", "Открыть папку..."))
+        self.exit_app.setText(_translate("MainWindow", "Выход"))

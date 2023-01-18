@@ -29,6 +29,8 @@
     </property>
     <addaction name="open_files"/>
     <addaction name="open_folder"/>
+    <addaction name="separator"/>
+    <addaction name="exit_app"/>
    </widget>
    <addaction name="file"/>
   </widget>
@@ -41,6 +43,11 @@
   <action name="open_folder">
    <property name="text">
     <string>Открыть папку...</string>
+   </property>
+  </action>
+  <action name="exit_app">
+   <property name="text">
+    <string>Выход</string>
    </property>
   </action>
  </widget>
