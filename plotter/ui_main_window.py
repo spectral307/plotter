@@ -25,6 +25,12 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.open_files = QtGui.QAction(MainWindow)
+        self.open_files.setObjectName("open_files")
+        self.open_folder = QtGui.QAction(MainWindow)
+        self.open_folder.setObjectName("open_folder")
+        self.file.addAction(self.open_files)
+        self.file.addAction(self.open_folder)
         self.menubar.addAction(self.file.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -34,3 +40,5 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.file.setTitle(_translate("MainWindow", "Файл"))
+        self.open_files.setText(_translate("MainWindow", "Октрыть файлы..."))
+        self.open_folder.setText(_translate("MainWindow", "Открыть папку..."))

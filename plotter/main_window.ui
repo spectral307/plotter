@@ -27,10 +27,22 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="open_files"/>
+    <addaction name="open_folder"/>
    </widget>
    <addaction name="file"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="open_files">
+   <property name="text">
+    <string>Октрыть файлы...</string>
+   </property>
+  </action>
+  <action name="open_folder">
+   <property name="text">
+    <string>Открыть папку...</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
