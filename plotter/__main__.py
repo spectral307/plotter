@@ -12,8 +12,8 @@ def main():
     app.setOrganizationName("GTLab")
     app.setOrganizationDomain("gtlab.pro")
 
-    main = MainWindow()
-    main.show()
+    main_window = MainWindow()
+    main_window.show()
 
     sys.exit(app.exec())
 
