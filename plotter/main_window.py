@@ -13,6 +13,7 @@ class MainWindow(QMainWindow):
         self.__ui.setupUi(self)
 
         self.__ui.open_files.triggered.connect(self.open_files)
+        self.__ui.open_folder.triggered.connect(self.open_folder)
         self.__ui.exit_app.triggered.connect(self.exit_app)
 
     def exit_app(self):
@@ -26,3 +27,11 @@ class MainWindow(QMainWindow):
         # pylint: disable-next=unused-variable
         filenames, _ = QFileDialog.getOpenFileNames(
             self, caption, directory, filefilter)
+
+    def open_folder(self):
+        caption = "Открыть папку"
+        directory = "/"
+        # Reason: the variable will be used later.
+        # pylint: disable-next=unused-variable
+        folder = QFileDialog.getExistingDirectory(  # noqa: F841
+            self, caption, directory)
