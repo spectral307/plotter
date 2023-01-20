@@ -1,6 +1,10 @@
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
+from matplotlib.figure import Figure
+# Reason: matplotlib is a third party module.
+# pylint: disable-next=no-name-in-module
+from matplotlib.backends.backend_qtagg import FigureCanvas
 from .ui_main_window import Ui_MainWindow
 
 
@@ -15,6 +19,12 @@ class MainWindow(QMainWindow):
         self.__ui.open_files.triggered.connect(self.open_files)
         self.__ui.open_folder.triggered.connect(self.open_folder)
         self.__ui.exit_app.triggered.connect(self.exit_app)
+
+        self.__ui.canvas = FigureCanvas(Figure())
+        self.__axes = self.__ui.canvas.figure.subplots()
+        self.__axes.grid()
+
+        self.__ui.splitter.replaceWidget(1, self.__ui.canvas)
 
     def exit_app(self):
         QApplication.quit()
