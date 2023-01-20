@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
         filefilter = "Все файлы (*.*)"
         # Reason: the variable will be used later.
         # pylint: disable-next=unused-variable
-        filenames, _ = QFileDialog.getOpenFileNames(
+        files, _ = QFileDialog.getOpenFileNames(
             self, caption, directory, filefilter)
 
     def open_folder(self):
