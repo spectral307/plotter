@@ -8,3 +8,14 @@ ignore-patterns=ui_\w+.py
 disable=missing-module-docstring,
         missing-class-docstring,
         missing-function-docstring
+
+[DESIGN]
+
+; Maximum cyclomatic complexity is 7.
+max-branches=6
+
+max-locals=7
+
+max-public-methods=6
+
+max-statements=24
