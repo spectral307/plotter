@@ -1,3 +1,5 @@
+from glob import glob
+from os.path import join
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
@@ -43,3 +45,7 @@ class MainWindow(QMainWindow):
         # pylint: disable-next=unused-variable
         folder = QFileDialog.getExistingDirectory(  # noqa: F841
             self, caption, directory)
+        pathname = join(folder, "*.*")
+        # Reason: the variable will be used later.
+        # pylint: disable-next=unused-variable
+        files = glob(pathname)  # noqa: F841
