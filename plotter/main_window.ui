@@ -20,7 +20,18 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QTableWidget" name="entries"/>
+      <widget class="QTableWidget" name="entries">
+       <column>
+        <property name="text">
+         <string>Показать</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Запись</string>
+        </property>
+       </column>
+      </widget>
       <widget class="QWidget" name="canvas" native="true"/>
      </widget>
     </item>
