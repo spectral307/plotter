@@ -37,12 +37,17 @@ class MainWindow(QMainWindow):
         # pylint: disable-next=unused-variable
         files, _ = QFileDialog.getOpenFileNames(
             self, caption, directory, filefilter)
+        if not files:
+            return
 
     def open_folder(self):
         caption = "Открыть папку"
         directory = "/"
         folder = QFileDialog.getExistingDirectory(  # noqa: F841
             self, caption, directory)
+        if not folder:
+            return
+
         pathname = join(folder, "*.*")
         # Reason: the variable will be used later.
         # pylint: disable-next=unused-variable
