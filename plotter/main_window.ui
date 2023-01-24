@@ -23,7 +23,7 @@
       <widget class="EntryTableWidget" name="entries">
        <column>
         <property name="text">
-         <string>Показать</string>
+         <string/>
         </property>
        </column>
        <column>

@@ -59,8 +59,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        item = self.entries.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Показать"))
         item = self.entries.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Запись"))
         self.file.setTitle(_translate("MainWindow", "Файл"))
