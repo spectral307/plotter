@@ -1,5 +1,5 @@
 from glob import glob
-from os.path import dirname, join
+from os.path import basename, dirname, join
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtCore import QSettings
@@ -32,6 +32,8 @@ class MainWindow(QMainWindow):
     def exit_app(self):
         QApplication.quit()
 
+    # Reason: the method will be changed and decomposed later.
+    # pylint: disable-next=too-many-locals
     def open_files(self):
         caption = "Открыть файлы"
         settings = QSettings()
@@ -47,6 +49,9 @@ class MainWindow(QMainWindow):
         new_directory = dirname(files[0])
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
+
+        basenames = [basename(file) for file in files]
+        self.__ui.entries.display_entries(basenames)
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -67,3 +72,6 @@ class MainWindow(QMainWindow):
         new_directory = dirname(folder)
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
+
+        basenames = [basename(file) for file in files]
+        self.__ui.entries.display_entries(basenames)
