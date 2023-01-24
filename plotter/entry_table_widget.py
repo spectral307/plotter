@@ -3,7 +3,8 @@
 from PyQt6.QtCore import Qt
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
-from PyQt6.QtWidgets import QCheckBox, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import (
+    QCheckBox, QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget)
 
 
 # Reason: more public methods will be added later.
@@ -15,11 +16,19 @@ class EntryTableWidget(QTableWidget):
             self.__append_row(entry)
 
     def __append_row(self, entry: str):
-        item = QTableWidgetItem(entry)
-
         self.insertRow(self.rowCount())
-        self.setCellWidget(self.rowCount()-1, 0, QCheckBox(self))
+
+        checkbox_widget = QWidget()
+        checkbox = QCheckBox(self)
+        hboxlayout = QHBoxLayout(checkbox_widget)
+        hboxlayout.addWidget(checkbox)
+        hboxlayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        hboxlayout.setContentsMargins(0, 0, 0, 0)
+
+        item = QTableWidgetItem(entry)
         item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
+
+        self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
         self.setItem(self.rowCount()-1, 1, item)
 
     def __clear(self):
