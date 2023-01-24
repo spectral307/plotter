@@ -19,8 +19,8 @@ class EntryTableWidget(QTableWidget):
     def __append_row(self, entry: str):
         self.insertRow(self.rowCount())
 
-        checkbox_widget = QWidget()
-        checkbox = QCheckBox(self)
+        checkbox_widget = QWidget(self)
+        checkbox = QCheckBox(checkbox_widget)
         hboxlayout = QHBoxLayout(checkbox_widget)
         hboxlayout.addWidget(checkbox)
         hboxlayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
