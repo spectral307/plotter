@@ -69,6 +69,11 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
+    def display_entries_in_entries_table(self, entries: list[str]):
+        self.__clear_entries_table()
+        for entry in entries:
+            self.__append_row_to_entries_table(entry)
+
     # Reason: the method will be used later.
     # pylint: disable-next=unused-private-member
     def __append_row_to_entries_table(self, entry: str):
