@@ -14,8 +14,6 @@ class EntryTableWidget(QTableWidget):
         for entry in entries:
             self.__append_row_to_entries_table(entry)
 
-    # Reason: the method will be used later.
-    # pylint: disable-next=unused-private-member
     def __append_row_to_entries_table(self, entry: str):
         item = QTableWidgetItem(entry)
 
@@ -24,7 +22,5 @@ class EntryTableWidget(QTableWidget):
         item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
         self.setItem(self.rowCount()-1, 1, item)
 
-    # Reason: the method will be used later.
-    # pylint: disable-next=unused-private-member
     def __clear_entries_table(self):
         self.setRowCount(0)
