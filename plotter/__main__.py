@@ -16,6 +16,9 @@ def main():
     app.setOrganizationDomain("gtlab.pro")
 
     settings = QSettings()
+    if len(sys.argv) > 1:
+        if (sys.argv[1] == "-c" or sys.argv[1] == "--clear"):
+            settings.clear()
     if not settings.value("default_dir"):
         settings.setValue("default_dir", "/")
     if not settings.value("last_dir"):
