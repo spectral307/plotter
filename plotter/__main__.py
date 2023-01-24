@@ -18,8 +18,8 @@ def main():
     settings = QSettings()
     if not settings.value("default_dir"):
         settings.setValue("default_dir", "/")
-    if not settings.value("previous_dir"):
-        settings.setValue("previous_dir", settings.value("default_dir"))
+    if not settings.value("last_dir"):
+        settings.setValue("last_dir", settings.value("default_dir"))
 
     main_window = MainWindow()
     main_window.show()

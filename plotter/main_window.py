@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
     def open_files(self):
         caption = "Открыть файлы"
         settings = QSettings()
-        directory = settings.value("previous_dir")
+        directory = settings.value("last_dir")
         filefilter = "Все файлы (*.*)"
         # Reason: the variable will be used later.
         # pylint: disable-next=unused-variable
@@ -46,14 +46,14 @@ class MainWindow(QMainWindow):
 
         new_directory = dirname(files[0])
         if new_directory != directory:
-            settings.setValue("previous_dir", new_directory)
+            settings.setValue("last_dir", new_directory)
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
     def open_folder(self):
         caption = "Открыть папку"
         settings = QSettings()
-        directory = settings.value("previous_dir")
+        directory = settings.value("last_dir")
         folder = QFileDialog.getExistingDirectory(  # noqa: F841
             self, caption, directory)
         if not folder:
@@ -66,4 +66,4 @@ class MainWindow(QMainWindow):
 
         new_directory = dirname(folder)
         if new_directory != directory:
-            settings.setValue("previous_dir", new_directory)
+            settings.setValue("last_dir", new_directory)
