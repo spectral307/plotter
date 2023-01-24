@@ -2,10 +2,11 @@ from glob import glob
 from os.path import dirname, join
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
-from PyQt6.QtCore import QSettings
+from PyQt6.QtCore import QSettings, Qt
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
-from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
+from PyQt6.QtWidgets import (
+    QApplication, QCheckBox, QFileDialog, QMainWindow, QTableWidgetItem)
 from matplotlib.figure import Figure
 # Reason: matplotlib is a third party module.
 # pylint: disable-next=no-name-in-module
@@ -67,3 +68,19 @@ class MainWindow(QMainWindow):
         new_directory = dirname(folder)
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
+
+    # Reason: the method will be used later.
+    # pylint: disable-next=unused-private-member
+    def __append_row_to_entries_table(self, entry: str):
+        entries = self.__ui.entries
+        item = QTableWidgetItem(entry)
+
+        entries.insertRow(entries.rowCount())
+        entries.setCellWidget(entries.rowCount()-1, 0, QCheckBox(entries))
+        item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
+        entries.setItem(entries.rowCount()-1, 1, item)
+
+    # Reason: the method will be used later.
+    # pylint: disable-next=unused-private-member
+    def __clear_entries_table(self):
+        self.__ui.entries.setRowCount(0)
