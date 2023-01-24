@@ -35,7 +35,7 @@ class EntryTableWidget(QTableWidget):
         self.setItem(self.rowCount()-1, 1, item)
 
         checkbox.setObjectName(entry)
-        checkbox.toggled.connect(
+        checkbox.toggled.connect(  # type: ignore[attr-defined]
             lambda checked: self.entry_toggled.emit(entry, checked))
 
     def __clear(self):
