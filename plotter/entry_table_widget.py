@@ -14,6 +14,7 @@ class EntryTableWidget(QTableWidget):
         self.__clear()
         for entry in entries:
             self.__append_row(entry)
+        self.resizeColumnsToContents()
 
     def __append_row(self, entry: str):
         self.insertRow(self.rowCount())
