@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.splitter.setObjectName("splitter")
-        self.entries = QtWidgets.QTableWidget(self.splitter)
+        self.entries = EntryTableWidget(self.splitter)
         self.entries.setObjectName("entries")
         self.entries.setColumnCount(2)
         self.entries.setRowCount(0)
@@ -67,3 +67,4 @@ class Ui_MainWindow(object):
         self.open_files.setText(_translate("MainWindow", "Октрыть файлы..."))
         self.open_folder.setText(_translate("MainWindow", "Открыть папку..."))
         self.exit_app.setText(_translate("MainWindow", "Выход"))
+from .entry_table_widget import EntryTableWidget

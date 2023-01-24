@@ -20,7 +20,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QTableWidget" name="entries">
+      <widget class="EntryTableWidget" name="entries">
        <column>
         <property name="text">
          <string>Показать</string>
@@ -74,6 +74,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EntryTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>.entry_table_widget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
