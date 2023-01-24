@@ -1,5 +1,8 @@
 from glob import glob
-from os.path import join
+from os.path import dirname, join
+# Reason: PyQt6 is a third party module.
+# pylint: disable-next=no-name-in-module
+from PyQt6.QtCore import QSettings
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
@@ -31,7 +34,8 @@ class MainWindow(QMainWindow):
 
     def open_files(self):
         caption = "Открыть файлы"
-        directory = "/"
+        settings = QSettings()
+        directory = settings.value("previous_dir")
         filefilter = "Все файлы (*.*)"
         # Reason: the variable will be used later.
         # pylint: disable-next=unused-variable
@@ -40,9 +44,16 @@ class MainWindow(QMainWindow):
         if not files:
             return
 
+        new_directory = dirname(files[0])
+        if new_directory != directory:
+            settings.setValue("previous_dir", new_directory)
+
+    # Reason: the method will be changed and decomposed later.
+    # pylint: disable-next=too-many-locals
     def open_folder(self):
         caption = "Открыть папку"
-        directory = "/"
+        settings = QSettings()
+        directory = settings.value("previous_dir")
         folder = QFileDialog.getExistingDirectory(  # noqa: F841
             self, caption, directory)
         if not folder:
@@ -52,3 +63,7 @@ class MainWindow(QMainWindow):
         # Reason: the variable will be used later.
         # pylint: disable-next=unused-variable
         files = glob(pathname)  # noqa: F841
+
+        new_directory = dirname(folder)
+        if new_directory != directory:
+            settings.setValue("previous_dir", new_directory)
