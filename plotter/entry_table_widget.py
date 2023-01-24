@@ -1,6 +1,6 @@
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import (
@@ -10,6 +10,8 @@ from PyQt6.QtWidgets import (
 # Reason: more public methods will be added later.
 # pylint: disable-next=too-few-public-methods
 class EntryTableWidget(QTableWidget):
+    entry_toggled = pyqtSignal(str, bool)
+
     def display_entries(self, entries: list[str]):
         self.__clear()
         for entry in entries:
@@ -31,6 +33,10 @@ class EntryTableWidget(QTableWidget):
 
         self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
         self.setItem(self.rowCount()-1, 1, item)
+
+        checkbox.setObjectName(entry)
+        checkbox.toggled.connect(
+            lambda checked: self.entry_toggled.emit(entry, checked))
 
     def __clear(self):
         self.setRowCount(0)
