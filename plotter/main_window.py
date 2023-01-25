@@ -50,8 +50,8 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        basenames = [basename(file) for file in files]
-        self.__ui.entries.display_entries(basenames)
+        entries = self.__get_entries(files)
+        self.__ui.entries.display_entries(entries)
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -73,5 +73,8 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        basenames = [basename(file) for file in files]
-        self.__ui.entries.display_entries(basenames)
+        entries = self.__get_entries(files)
+        self.__ui.entries.display_entries(entries)
+
+    def __get_entries(self, files: list[str]):
+        return [basename(file) for file in files]
