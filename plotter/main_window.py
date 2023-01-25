@@ -1,5 +1,6 @@
 from glob import glob
 from os.path import basename, dirname, join
+from typing import Union
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtCore import QSettings
@@ -51,7 +52,7 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = self.__get_entries(files)
-        self.__ui.entries.display_entries(entries)
+        self.__ui.entries.display_entries(list(entries.keys()))
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -74,7 +75,12 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = self.__get_entries(files)
-        self.__ui.entries.display_entries(entries)
+        self.__ui.entries.display_entries(list(entries.keys()))
 
     def __get_entries(self, files: list[str]):
-        return [basename(file) for file in files]
+        entries: dict[str, dict[str, list[Union[int, float]]]] = {}
+        for file in files:
+            entry_name = basename(file)
+            datasets: dict[str, list[Union[int, float]]] = {}
+            entries[entry_name] = datasets
+        return entries
