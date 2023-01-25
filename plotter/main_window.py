@@ -43,8 +43,6 @@ class MainWindow(QMainWindow):
         settings = QSettings()
         directory = settings.value("last_dir")
         filefilter = "Все файлы (*.*)"
-        # Reason: the variable will be used later.
-        # pylint: disable-next=unused-variable
         files, _ = QFileDialog.getOpenFileNames(
             self, caption, directory, filefilter)
         if not files:
@@ -63,15 +61,13 @@ class MainWindow(QMainWindow):
         caption = "Открыть папку"
         settings = QSettings()
         directory = settings.value("last_dir")
-        folder = QFileDialog.getExistingDirectory(  # noqa: F841
+        folder = QFileDialog.getExistingDirectory(
             self, caption, directory)
         if not folder:
             return
 
         pathname = join(folder, "*.*")
-        # Reason: the variable will be used later.
-        # pylint: disable-next=unused-variable
-        files = glob(pathname)  # noqa: F841
+        files = glob(pathname)
 
         new_directory = dirname(folder)
         if new_directory != directory:
