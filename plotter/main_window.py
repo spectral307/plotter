@@ -11,6 +11,9 @@ from matplotlib.figure import Figure
 # Reason: matplotlib is a third party module.
 # pylint: disable-next=no-name-in-module
 from matplotlib.backends.backend_qtagg import FigureCanvas
+from openpyxl import load_workbook
+from openpyxl.cell.cell import Cell
+from openpyxl.worksheet.worksheet import Worksheet
 from .ui_main_window import Ui_MainWindow
 
 
@@ -77,10 +80,41 @@ class MainWindow(QMainWindow):
         entries = self.__get_entries(files)
         self.__ui.entries.display_entries(list(entries.keys()))
 
+    # Reason: the method will be changed and decomposed later.
+    # pylint: disable-next=too-many-locals
     def __get_entries(self, files: list[str]):
         entries: dict[str, dict[str, list[Union[int, float]]]] = {}
+
         for file in files:
             entry_name = basename(file)
             datasets: dict[str, list[Union[int, float]]] = {}
             entries[entry_name] = datasets
+
+            workbook = load_workbook(file)
+            worksheet = workbook["data"]
+
+            x_start_cell = worksheet["E2"]
+            sens_abs_start_cell = worksheet["F2"]
+            sens_rel_start_cell = worksheet["G2"]
+
+            datasets["x"] = self.__read_column(worksheet, x_start_cell)
+            datasets["sens_abs"] = self.__read_column(
+                worksheet, sens_abs_start_cell)
+            datasets["sens_rel"] = self.__read_column(
+                worksheet, sens_rel_start_cell)
+
         return entries
+
+    # Reason: the method will be changed and decomposed later.
+    # pylint: disable-next=too-many-locals
+    def __read_column(self, worksheet: Worksheet, start_cell: Cell):
+        i = 0
+        start_row = start_cell.row
+        col_idx = start_cell.col_idx
+        col_data = []
+        value = worksheet.cell(start_row, col_idx).value
+        while value is not None:
+            col_data.append(value)
+            i += 1
+            value = worksheet.cell(start_row+i, col_idx).value
+        return col_data
