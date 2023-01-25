@@ -62,10 +62,16 @@
    <property name="text">
     <string>Октрыть файлы...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="open_folder">
    <property name="text">
     <string>Открыть папку...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K, Ctrl+O</string>
    </property>
   </action>
   <action name="exit_app">

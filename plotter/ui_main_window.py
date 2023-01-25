@@ -63,6 +63,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Запись"))
         self.file.setTitle(_translate("MainWindow", "Файл"))
         self.open_files.setText(_translate("MainWindow", "Октрыть файлы..."))
+        self.open_files.setShortcut(_translate("MainWindow", "Ctrl+O"))
         self.open_folder.setText(_translate("MainWindow", "Открыть папку..."))
+        self.open_folder.setShortcut(_translate("MainWindow", "Ctrl+K, Ctrl+O"))
         self.exit_app.setText(_translate("MainWindow", "Выход"))
 from .entry_table_widget import EntryTableWidget
