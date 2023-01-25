@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = self.__get_entries(files)
-        self.__ui.entries.display_entries(list(entries.keys()))
+        self.__ui.entries.set_entries(list(entries.keys()))
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = self.__get_entries(files)
-        self.__ui.entries.display_entries(list(entries.keys()))
+        self.__ui.entries.set_entries(list(entries.keys()))
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals

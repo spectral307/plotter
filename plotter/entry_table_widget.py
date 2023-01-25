@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import (
 class EntryTableWidget(QTableWidget):
     entry_toggled = pyqtSignal(str, bool)
 
-    def display_entries(self, entries: list[str]):
+    def set_entries(self, entries: list[str]):
         self.__clear()
         for entry in entries:
             self.__append_row(entry)
