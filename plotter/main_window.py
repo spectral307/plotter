@@ -79,11 +79,11 @@ class MainWindow(QMainWindow):
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
     def __get_entries(self, files: list[str]):
-        entries: dict[str, dict[str, list[Union[int, float]]]] = {}
+        entries: dict[str, dict[str, Union[list[Union[int, float]], str]]] = {}
 
         for file in files:
             entry_name = basename(file)
-            datasets: dict[str, list[Union[int, float]]] = {}
+            datasets: dict[str, Union[list[Union[int, float]], str]] = {}
             entries[entry_name] = datasets
 
             workbook = load_workbook(file)
@@ -91,13 +91,11 @@ class MainWindow(QMainWindow):
 
             x_start_cell = worksheet["E2"]
             sens_abs_start_cell = worksheet["F2"]
-            sens_rel_start_cell = worksheet["G2"]
 
             datasets["x"] = self.__read_column(worksheet, x_start_cell)
-            datasets["sens_abs"] = self.__read_column(
-                worksheet, sens_abs_start_cell)
-            datasets["sens_rel"] = self.__read_column(
-                worksheet, sens_rel_start_cell)
+            datasets["x_label"] = "F, Hz"
+            datasets["y"] = self.__read_column(worksheet, sens_abs_start_cell)
+            datasets["y_label"] = "Sensitivity abs"
 
         return entries
 
