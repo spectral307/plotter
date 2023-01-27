@@ -7,13 +7,10 @@ from PyQt6.QtCore import QSettings
 # Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
-from matplotlib.figure import Figure
-# Reason: matplotlib is a third party module.
-# pylint: disable-next=no-name-in-module
-from matplotlib.backends.backend_qtagg import FigureCanvas
 from openpyxl import load_workbook
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
+from .entry_canvas import EntryCanvas
 from .ui_main_window import Ui_MainWindow
 
 
@@ -27,9 +24,7 @@ class MainWindow(QMainWindow):
         self.__ui.open_folder.triggered.connect(self.open_folder)
         self.__ui.exit_app.triggered.connect(self.exit_app)
 
-        self.__ui.canvas = FigureCanvas(Figure())
-        self.__axes = self.__ui.canvas.figure.subplots()
-        self.__axes.grid()
+        self.__ui.canvas = EntryCanvas()
 
         self.__ui.splitter.replaceWidget(1, self.__ui.canvas)
 
@@ -54,9 +49,9 @@ class MainWindow(QMainWindow):
 
         entries = self.__get_entries(files)
         self.__ui.entries.set_entries(list(entries.keys()))
+        self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__axes.plot(item[1]["x"], item[1]["y"])
-        self.__ui.canvas.draw_idle()
+            self.__ui.canvas.plot(item[1]["x"], item[1]["y"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -78,9 +73,9 @@ class MainWindow(QMainWindow):
 
         entries = self.__get_entries(files)
         self.__ui.entries.set_entries(list(entries.keys()))
+        self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__axes.plot(item[1]["x"], item[1]["y"])
-        self.__ui.canvas.draw_idle()
+            self.__ui.canvas.plot(item[1]["x"], item[1]["y"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
