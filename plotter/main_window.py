@@ -54,6 +54,9 @@ class MainWindow(QMainWindow):
 
         entries = self.__get_entries(files)
         self.__ui.entries.set_entries(list(entries.keys()))
+        for item in list(entries.items()):
+            self.__axes.plot(item[1]["x"], item[1]["y"])
+        self.__ui.canvas.draw_idle()
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -75,6 +78,9 @@ class MainWindow(QMainWindow):
 
         entries = self.__get_entries(files)
         self.__ui.entries.set_entries(list(entries.keys()))
+        for item in list(entries.items()):
+            self.__axes.plot(item[1]["x"], item[1]["y"])
+        self.__ui.canvas.draw_idle()
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
