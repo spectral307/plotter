@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(list(entries.keys()))
         self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__ui.canvas.plot(item[1]["x"], item[1]["y"])
+            self.__ui.canvas.plot(item[0], item[1]["x"], item[1]["y"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(list(entries.keys()))
         self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__ui.canvas.plot(item[1]["x"], item[1]["y"])
+            self.__ui.canvas.plot(item[0], item[1]["x"], item[1]["y"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals

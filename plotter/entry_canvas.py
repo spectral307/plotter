@@ -9,15 +9,19 @@ class EntryCanvas(FigureCanvas):
         super().__init__(Figure())
         self.__axes = self.figure.subplots()
         self.__axes.grid()
-        self.__lines = []
+        self.__lines = {}
 
-    def plot(self, *args, **kwargs):
+    def plot(self, entryname, *args, **kwargs):
         line, = self.__axes.plot(*args, **kwargs)
-        self.__lines.append(line)
+        self.__lines[entryname] = line
         self.draw_idle()
 
     def clear(self):
-        for line in self.__lines:
+        for line in list(self.__lines.values()):
             self.__axes.lines.remove(line)
         self.__lines.clear()
         self.draw_idle()
+
+    def clear_line(self, entryname):
+        line = self.__lines.pop(entryname)
+        self.__axes.lines.remove(line)
