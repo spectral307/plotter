@@ -37,9 +37,8 @@ class EntryTableWidget(QTableWidget):
 
         checkbox = self.__append_checkbox()
 
-        item = QTableWidgetItem(entry)
-        item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
-        self.setItem(self.rowCount()-1, 1, item)
+        item = self.__append_item()
+        item.setText(entry)
 
         checkbox.setObjectName(entry)
         checkbox.setChecked(initial_check_state)
@@ -55,6 +54,12 @@ class EntryTableWidget(QTableWidget):
         hboxlayout.setContentsMargins(0, 0, 0, 0)
         self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
         return checkbox
+
+    def __append_item(self) -> QTableWidgetItem:
+        item = QTableWidgetItem()
+        item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
+        self.setItem(self.rowCount()-1, 1, item)
+        return item
 
     def __handle_checkbox_toggled(self, entry, checked):
         self.__entries[entry] = checked
