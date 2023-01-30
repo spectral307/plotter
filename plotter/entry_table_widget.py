@@ -36,14 +36,13 @@ class EntryTableWidget(QTableWidget):
         self.insertRow(self.rowCount())
 
         checkbox = self.__append_checkbox()
-
-        item = self.__append_item()
-        item.setText(entry)
-
         checkbox.setObjectName(entry)
         checkbox.setChecked(initial_check_state)
         checkbox.toggled.connect(  # type: ignore[attr-defined]
             lambda checked: self.__handle_checkbox_toggled(entry, checked))
+
+        item = self.__append_item()
+        item.setText(entry)
 
     def __append_checkbox(self) -> QCheckBox:
         checkbox_widget = QWidget(self)
