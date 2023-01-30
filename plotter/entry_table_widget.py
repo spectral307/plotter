@@ -35,23 +35,26 @@ class EntryTableWidget(QTableWidget):
 
         self.insertRow(self.rowCount())
 
-        checkbox_widget = QWidget(self)
-        checkbox = QCheckBox(checkbox_widget)
-        hboxlayout = QHBoxLayout(checkbox_widget)
-        hboxlayout.addWidget(checkbox)
-        hboxlayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        hboxlayout.setContentsMargins(0, 0, 0, 0)
+        checkbox = self.__append_checkbox()
 
         item = QTableWidgetItem(entry)
         item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
-
-        self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
         self.setItem(self.rowCount()-1, 1, item)
 
         checkbox.setObjectName(entry)
         checkbox.setChecked(initial_check_state)
         checkbox.toggled.connect(  # type: ignore[attr-defined]
             lambda checked: self.__handle_checkbox_toggled(entry, checked))
+
+    def __append_checkbox(self) -> QCheckBox:
+        checkbox_widget = QWidget(self)
+        checkbox = QCheckBox(checkbox_widget)
+        hboxlayout = QHBoxLayout(checkbox_widget)
+        hboxlayout.addWidget(checkbox)
+        hboxlayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        hboxlayout.setContentsMargins(0, 0, 0, 0)
+        self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
+        return checkbox
 
     def __handle_checkbox_toggled(self, entry, checked):
         self.__entries[entry] = checked
