@@ -9,7 +9,9 @@ class GtlAfcReportEntries(dict):
 
         for file in files:
             file_basename = basename(file)
-            dataframe = pd.read_excel(file, "data", usecols="E:G")
+            dataframe = pd.read_excel(file, "data",
+                                      usecols="E:G",
+                                      names=["F", "Sabs", "Srel"])
             entries[file_basename] = dataframe
 
         return entries
