@@ -8,6 +8,7 @@ from PyQt6.QtCore import QSettings
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
 from .entry_canvas import EntryCanvas
 from .gtl_afc_report_entries import GtlAfcReportEntries
+from .gtl_afc_report_entry import GtlAfcReportEntry
 from .ui_main_window import Ui_MainWindow
 
 
@@ -45,10 +46,12 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = GtlAfcReportEntries.create(files)
-        self.__ui.entries.set_entries(list(entries.keys()))
+        self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.clear()
-        for item in list(entries.items()):
-            self.__ui.canvas.plot(item[0], item[1]["F"], item[1]["Sabs"])
+        y_header = GtlAfcReportEntry.y_headers[0]
+        for entry in entries:
+            x_data, y_data = entry.get_xy_data(y_header)
+            self.__ui.canvas.plot(entry.name, x_data, y_data)
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -69,7 +72,9 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         entries = GtlAfcReportEntries.create(files)
-        self.__ui.entries.set_entries(list(entries.keys()))
+        self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.clear()
-        for item in list(entries.items()):
-            self.__ui.canvas.plot(item[0], item[1]["F"], item[1]["Sabs"])
+        y_header = GtlAfcReportEntry.y_headers[0]
+        for entry in entries:
+            x_data, y_data = entry.get_xy_data(y_header)
+            self.__ui.canvas.plot(entry.name, x_data, y_data)
