@@ -11,6 +11,7 @@ from openpyxl import load_workbook
 from openpyxl.cell.cell import Cell
 from openpyxl.worksheet.worksheet import Worksheet
 from .entry_canvas import EntryCanvas
+from .gtl_afc_report_entries import GtlAfcReportEntries
 from .ui_main_window import Ui_MainWindow
 
 
@@ -47,11 +48,11 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        entries = self.__get_entries(files)
+        entries = GtlAfcReportEntries.create(files)
         self.__ui.entries.set_entries(list(entries.keys()))
         self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__ui.canvas.plot(item[0], item[1]["x"], item[1]["y"])
+            self.__ui.canvas.plot(item[0], item[1]["F"], item[1]["Sabs"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
@@ -71,11 +72,11 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        entries = self.__get_entries(files)
+        entries = GtlAfcReportEntries.create(files)
         self.__ui.entries.set_entries(list(entries.keys()))
         self.__ui.canvas.clear()
         for item in list(entries.items()):
-            self.__ui.canvas.plot(item[0], item[1]["x"], item[1]["y"])
+            self.__ui.canvas.plot(item[0], item[1]["F"], item[1]["Sabs"])
 
     # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
