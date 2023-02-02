@@ -7,8 +7,8 @@ from PyQt6.QtCore import QSettings
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
 from .entry_canvas import EntryCanvas
-from .gtl_afc_report_entries import GtlAfcReportEntries
-from .gtl_afc_report_entry import GtlAfcReportEntry
+from .frequency_responses import FrequencyResponses
+from .frequency_response import FrequencyResponse
 from .ui_main_window import Ui_MainWindow
 
 
@@ -45,10 +45,10 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        entries = GtlAfcReportEntries.create(files)
+        entries = FrequencyResponses.create(files)
         self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.clear()
-        y_header = GtlAfcReportEntry.y_headers[0]
+        y_header = FrequencyResponse.y_headers[0]
         for entry in entries:
             x_data, y_data = entry.get_xy_data(y_header)
             self.__ui.canvas.plot(entry.name, x_data, y_data)
@@ -71,10 +71,10 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        entries = GtlAfcReportEntries.create(files)
+        entries = FrequencyResponses.create(files)
         self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.clear()
-        y_header = GtlAfcReportEntry.y_headers[0]
+        y_header = FrequencyResponse.y_headers[0]
         for entry in entries:
             x_data, y_data = entry.get_xy_data(y_header)
             self.__ui.canvas.plot(entry.name, x_data, y_data)
