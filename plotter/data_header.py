@@ -3,7 +3,7 @@ from typing import Optional
 
 
 @dataclass(frozen=True)
-class Header:
+class DataHeader:
     name: str
     short_name: str
     excel_col: str
