@@ -25,3 +25,20 @@ class GtlAfcReportEntries(list):
             entries.append(entry)
 
         return entries
+
+    def append_from_files(self, files: list[str]):
+        for file in files:
+            entry_name = basename(file)
+            data = pd.read_excel(
+                file,
+                sheet_name="data",
+                usecols=(f"{GtlAfcReportEntry.x_header.excel_col}"
+                         + f",{GtlAfcReportEntry.y_headers[0].excel_col}"
+                         + f",{GtlAfcReportEntry.y_headers[1].excel_col}"),
+                names=[GtlAfcReportEntry.x_header,
+                       GtlAfcReportEntry.y_headers[0],
+                       GtlAfcReportEntry.y_headers[1]]
+            )
+
+            entry = GtlAfcReportEntry(entry_name, data)
+            self.append(entry)
