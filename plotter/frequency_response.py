@@ -6,9 +6,9 @@ from .entry import Entry
 # Reason: more public methods will be added later.
 # pylint: disable-next=too-few-public-methods
 class FrequencyResponse(Entry):
-    x_header = DataHeader("Frequency", "F", "E", "Hz")
-    y_headers = (DataHeader("Sensitivity absolute", "S(abs)", "F"),
-                 DataHeader("Sensitivity relative", "S(rel)", "G", "%"))
+    x_header = DataHeader("Frequency", "F", "Hz")
+    y_headers = (DataHeader("Sensitivity absolute", "S(abs)"),
+                 DataHeader("Sensitivity relative", "S(rel)", "%"))
 
     def __init__(self, name: str, data: pd.DataFrame):
         self.name = name

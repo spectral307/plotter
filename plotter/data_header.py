@@ -6,7 +6,6 @@ from typing import Optional
 class DataHeader:
     name: str
     short_name: str
-    excel_col: str
     unit: Optional[str] = None
     description: Optional[str] = None
 
