@@ -28,7 +28,7 @@ class EntryTableWidget(QTableWidget):
 
     def __append_row(self, entry: str):
         if entry in self.__entries:
-            raise ValueError(f"Cannot insert a duplicate entry: '{entry}'.")
+            raise ValueError(f"cannot insert duplicate entry: {entry}")
 
         initial_check_state = False
         self.__entries[entry] = initial_check_state

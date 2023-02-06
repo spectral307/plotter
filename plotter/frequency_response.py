@@ -23,7 +23,7 @@ class FrequencyResponse(Entry):
         root, ext = splitext(file_basename)
 
         if ext != ".xlsx" or ext != ".xlsm":
-            raise ValueError(f"excel file expected, got '{ext}'")
+            raise ValueError(f"Excel file expected, got: {ext}")
 
         if name is None:
             name = root
@@ -44,5 +44,5 @@ class FrequencyResponse(Entry):
 
     def get_xy_data(self, y_header: DataHeader) -> tuple[pd.Series, pd.Series]:
         if y_header not in FrequencyResponse.y_headers:
-            raise ValueError(f"No such DataHeader in entry: {y_header}.")
+            raise ValueError(f"y_header isn't in entry: {y_header}")
         return self.data[FrequencyResponse.x_header], self.data[y_header]
