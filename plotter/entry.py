@@ -5,14 +5,16 @@ from .data_header import DataHeader
 
 class Entry:
     x_header: DataHeader
-    y_headers: tuple[DataHeader]
+    y_headers: tuple[DataHeader, ...]
 
     def __init__(self, name: str, data: pd.DataFrame):
         self.name = name
         self.data = data
 
     @classmethod
-    def from_excel(self, file: str, sheet: str,
+    # Reason: the method will be decomposed later.
+    # pylint: disable-next=too-many-locals
+    def from_excel(cls, file: str, sheet: str,
                    column_mapping: dict[DataHeader, str], name=None) \
             -> "Entry":
         file_basename = basename(file)

@@ -4,7 +4,7 @@ from .parser import Parser
 
 class GtlAfcExcelParser(Parser):
     def parse_file(self, file: str) -> list[Entry]:
-        pass
+        raise NotImplementedError()
 
     def parse_files(self, files: list[str]) -> list[Entry]:
-        pass
+        raise NotImplementedError()

@@ -7,7 +7,6 @@ from PyQt6.QtCore import QSettings
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
 from .entry_canvas import EntryCanvas
-from .frequency_response import FrequencyResponse
 from .ui_main_window import Ui_MainWindow
 
 
@@ -44,7 +43,7 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-    # Reason: the method will be changed and decomposed later.
+    # Reason: the method will be decomposed later.
     # pylint: disable-next=too-many-locals
     def open_folder(self):
         caption = "Открыть папку"
@@ -56,7 +55,9 @@ class MainWindow(QMainWindow):
             return
 
         pathname = join(folder, "*.*")
-        files = glob(pathname)
+        # Reason: the variable will be used later.
+        # pylint: disable-next=unused-variable
+        files = glob(pathname)  # noqa: F841
 
         new_directory = dirname(folder)
         if new_directory != directory:
