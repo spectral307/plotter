@@ -20,15 +20,15 @@ class Entry:
         file_basename = basename(file)
         root, ext = splitext(file_basename)
 
-        if ext != ".xlsx" or ext != ".xlsm":
+        if ext not in (".xlsx", ".xlsm"):
             raise ValueError(f"Excel file expected, got: {ext}")
 
         if name is None:
             name = root
 
-        usecols = column_mapping[Entry.x_header]
-        names = [Entry.x_header]
-        for header in Entry.y_headers:
+        usecols = column_mapping[cls.x_header]
+        names = [cls.x_header]
+        for header in cls.y_headers:
             usecols += f",{column_mapping[header]}"
             names.append(header)
 
@@ -38,9 +38,9 @@ class Entry:
             usecols=usecols,
             names=names)
 
-        return Entry(name, data)
+        return cls(name, data)
 
     def get_xy_data(self, y_header: DataHeader) -> tuple[pd.Series, pd.Series]:
-        if y_header not in Entry.y_headers:
+        if y_header not in self.y_headers:
             raise ValueError(f"y_header isn't in entry: {y_header}")
-        return self.data[Entry.x_header], self.data[y_header]
+        return self.data[self.x_header], self.data[y_header]
