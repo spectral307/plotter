@@ -25,3 +25,4 @@ class EntryCanvas(FigureCanvas):
     def clear_line(self, entryname):
         line = self.__lines.pop(entryname)
         self.__axes.lines.remove(line)
+        self.draw_idle()
