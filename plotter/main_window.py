@@ -30,6 +30,8 @@ class MainWindow(QMainWindow):
         self.__parser = GtlAfcExcelParser()
         self.__entries = {}
 
+        self.__ui.entries.entry_toggled.connect(self.__handle_entry_toggled)
+
     def exit_app(self):
         QApplication.quit()
 
@@ -56,7 +58,6 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
-        self.__ui.entries.entry_toggled.connect(self.__handle_entry_toggled)
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     # Reason: the method will be decomposed later.
@@ -89,7 +90,6 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries([entry.name for entry in entries])
         self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
-        self.__ui.entries.entry_toggled.connect(self.__handle_entry_toggled)
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     def __handle_entry_toggled(self, entryname, checked):
