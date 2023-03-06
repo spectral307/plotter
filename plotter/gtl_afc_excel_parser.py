@@ -1,6 +1,6 @@
 from .entry import Entry
-from .parser import Parser
 from .frequency_response import FrequencyResponse
+from .parser import Parser
 
 
 class GtlAfcExcelParser(Parser):
