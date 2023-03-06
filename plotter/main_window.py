@@ -55,7 +55,7 @@ class MainWindow(QMainWindow):
         entries = self.__parser.parse_files(files)
         for entry in entries:
             self.__entries[entry.name] = entry
-        self.__ui.entries.set_entries([entry.name for entry in entries])
+        self.__ui.entries.set_entries(entries)
         self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
@@ -87,7 +87,7 @@ class MainWindow(QMainWindow):
         entries = self.__parser.parse_files(files)
         for entry in entries:
             self.__entries[entry.name] = entry
-        self.__ui.entries.set_entries([entry.name for entry in entries])
+        self.__ui.entries.set_entries(entries)
         self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])

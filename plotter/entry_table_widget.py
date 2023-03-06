@@ -5,6 +5,7 @@ from PyQt6.QtCore import Qt, pyqtSignal
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import (
     QCheckBox, QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget)
+from .entry import Entry
 
 
 # Reason: more public methods will be added later.
@@ -12,37 +13,35 @@ from PyQt6.QtWidgets import (
 class EntryTableWidget(QTableWidget):
     entry_toggled = pyqtSignal(str, bool)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, initial_check_state: bool = True, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__entries = {}
+        self.__initial_check_state: bool = initial_check_state
+        self.__check_states: dict[str, bool] = {}
 
-    def set_entries(self, entries: list[str]):
+    def set_entries(self, entries: list[Entry]):
         self.__clear()
         try:
             for entry in entries:
-                self.__append_row(entry)
+                self.__append_entry(entry)
         except ValueError:
             self.__clear()
             raise
         self.resizeColumnsToContents()
 
-    def __append_row(self, entry: str):
-        if entry in self.__entries:
-            raise ValueError(f"cannot insert duplicate entry: {entry}")
-
-        initial_check_state = True
-        self.__entries[entry] = initial_check_state
+    def __append_entry(self, entry: Entry):
+        self.__check_states[entry.name] = self.__initial_check_state
 
         self.insertRow(self.rowCount())
 
         checkbox = self.__append_checkbox()
-        checkbox.setObjectName(entry)
-        checkbox.setChecked(initial_check_state)
+        checkbox.setObjectName(entry.name)
+        checkbox.setChecked(self.__check_states[entry.name])
         checkbox.toggled.connect(  # type: ignore[attr-defined]
-            lambda checked: self.__handle_checkbox_toggled(entry, checked))
+            lambda checked: self.__handle_checkbox_toggled(entry.name,
+                                                           checked))
 
-        item = self.__append_item()
-        item.setText(entry)
+        item = self.__append_table_widget_item()
+        item.setText(entry.name)
 
     def __append_checkbox(self) -> QCheckBox:
         checkbox_widget = QWidget(self)
@@ -54,16 +53,16 @@ class EntryTableWidget(QTableWidget):
         self.setCellWidget(self.rowCount()-1, 0, checkbox_widget)
         return checkbox
 
-    def __append_item(self) -> QTableWidgetItem:
+    def __append_table_widget_item(self) -> QTableWidgetItem:
         item = QTableWidgetItem()
         item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
         self.setItem(self.rowCount()-1, 1, item)
         return item
 
-    def __handle_checkbox_toggled(self, entry, checked):
-        self.__entries[entry] = checked
-        self.entry_toggled.emit(entry, checked)
+    def __handle_checkbox_toggled(self, entryname: str, checked: bool):
+        self.__check_states[entryname] = checked
+        self.entry_toggled.emit(entryname, checked)
 
     def __clear(self):
         self.setRowCount(0)
-        self.__entries.clear()
+        self.__check_states.clear()
