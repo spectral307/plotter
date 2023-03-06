@@ -1,5 +1,4 @@
 from matplotlib.figure import Figure
-# Reason: matplotlib is a third party module.
 # pylint: disable-next=no-name-in-module
 from matplotlib.backends.backend_qtagg import FigureCanvas
 from .data_header import DataHeader

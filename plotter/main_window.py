@@ -1,9 +1,7 @@
 from glob import glob
 from os.path import dirname, join
-# Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtCore import QSettings
-# Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow
 from .entry_canvas import EntryCanvas
@@ -35,7 +33,6 @@ class MainWindow(QMainWindow):
     def exit_app(self):
         QApplication.quit()
 
-    # Reason: the method will be changed and decomposed later.
     # pylint: disable-next=too-many-locals
     def open_files(self):
         caption = "Открыть файлы"
@@ -60,7 +57,6 @@ class MainWindow(QMainWindow):
         self.__ui.canvas.display_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
-    # Reason: the method will be decomposed later.
     # pylint: disable-next=too-many-locals
     def open_folder(self):
         caption = "Открыть папку"

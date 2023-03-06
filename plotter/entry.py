@@ -12,7 +12,6 @@ class Entry:
         self.data = data
 
     @classmethod
-    # Reason: the method will be decomposed later.
     # pylint: disable-next=too-many-locals
     def from_excel(cls, file: str, sheet: str,
                    column_mapping: dict[DataHeader, str], name=None) \

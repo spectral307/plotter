@@ -1,14 +1,11 @@
-# Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtCore import Qt, pyqtSignal
-# Reason: PyQt6 is a third party module.
 # pylint: disable-next=no-name-in-module
 from PyQt6.QtWidgets import (
     QCheckBox, QHBoxLayout, QTableWidget, QTableWidgetItem, QWidget)
 from .entry import Entry
 
 
-# Reason: more public methods will be added later.
 # pylint: disable-next=too-few-public-methods
 class EntryTableWidget(QTableWidget):
     entry_toggled = pyqtSignal(str, bool)
