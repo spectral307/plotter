@@ -1,16 +1,29 @@
 from matplotlib.figure import Figure
 # pylint: disable-next=no-name-in-module
-from matplotlib.backends.backend_qtagg import FigureCanvas
+from matplotlib.backends.backend_qtagg import (
+    FigureCanvas, NavigationToolbar2QT)
+# pylint: disable-next=no-name-in-module
+from PyQt6.QtWidgets import QVBoxLayout, QWidget
 from .data_header import DataHeader
 from .entry import Entry
 
 
 # pylint: disable-next=too-many-public-methods
-class EntryCanvas(FigureCanvas):
-    def __init__(self):
-        super().__init__(Figure())
-        self.__axes = self.figure.subplots()
+class EntryCanvas(QWidget):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.__canvas = FigureCanvas(Figure())
+        toolbar = NavigationToolbar2QT(self.__canvas, self)
+
+        layout = QVBoxLayout(self)
+        layout.addWidget(toolbar)
+        layout.addWidget(self.__canvas)
+
+        self.__axes = self.__canvas.figure.subplots()
         self.__axes.grid()
+        self.__axes.set_xscale("log")
+
         self.__y_header = None
         self.__entry_items = {}
 
@@ -39,7 +52,7 @@ class EntryCanvas(FigureCanvas):
     def display_all_entries(self):
         for entryname in self.__entry_items:
             self.display_entry(entryname, draw_idle=False)
-        self.draw_idle()
+        self.__canvas.draw_idle()
 
     # pylint: disable-next=too-many-locals
     def display_entry(self, entryname: str, draw_idle: bool = True):
@@ -54,12 +67,12 @@ class EntryCanvas(FigureCanvas):
                 line, = self.__axes.plot(x_data, y_data, color=color)
             self.__entry_items[entryname]["line"] = line
             if draw_idle:
-                self.draw_idle()
+                self.__canvas.draw_idle()
 
     def hide_all_entries(self):
         for entryname in self.__entry_items:
             self.hide_entry(entryname, draw_idle=False)
-        self.draw_idle()
+        self.__canvas.draw_idle()
 
     def hide_entry(self, entryname: str, draw_idle: bool = True):
         self.__clear_line(entryname, draw_idle)
@@ -68,7 +81,7 @@ class EntryCanvas(FigureCanvas):
         for entryname in self.__entry_items:
             self.__clear_line(entryname, draw_idle=False)
         self.__entry_items.clear()
-        self.draw_idle()
+        self.__canvas.draw_idle()
 
     def __clear_line(self, entryname: str, draw_idle: bool = True):
         line = self.__entry_items[entryname]["line"]
@@ -76,4 +89,4 @@ class EntryCanvas(FigureCanvas):
             self.__axes.lines.remove(line)
             self.__entry_items[entryname]["line"] = None
             if draw_idle:
-                self.draw_idle()
+                self.__canvas.draw_idle()

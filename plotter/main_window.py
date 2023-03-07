@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         self.__ui.open_folder.triggered.connect(self.open_folder)
         self.__ui.exit_app.triggered.connect(self.exit_app)
 
-        self.__ui.canvas = EntryCanvas()
+        self.__ui.canvas = EntryCanvas(self)
 
         self.__ui.splitter.replaceWidget(1, self.__ui.canvas)
 
