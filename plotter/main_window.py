@@ -8,6 +8,7 @@ from .entry_canvas import EntryCanvas
 from .frequency_response import FrequencyResponse
 from .gtl_afc_excel_parser import GtlAfcExcelParser
 from .ui_main_window import Ui_MainWindow
+from .entry_list import EntryList
 
 
 class MainWindow(QMainWindow):
@@ -26,7 +27,7 @@ class MainWindow(QMainWindow):
 
         self.__entry_type = FrequencyResponse
         self.__parser = GtlAfcExcelParser()
-        self.__entries = {}
+        self.__entries = EntryList[self.__entry_type]([], self.__entry_type)
 
         self.__ui.entries.entry_toggled.connect(self.__handle_entry_toggled)
 
@@ -49,11 +50,10 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         self.__entries.clear()
-        entries = self.__parser.parse_files(files)
-        for entry in entries:
-            self.__entries[entry.name] = entry
-        self.__ui.entries.set_entries(entries)
-        self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
+        self.__entries.extend(self.__parser.parse_files(files))
+        self.__ui.entries.set_entries(self.__entries)
+        self.__ui.canvas.set_entries(self.__entries,
+                                     self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
@@ -80,11 +80,10 @@ class MainWindow(QMainWindow):
             self.__entries[entry.name] = entry
 
         self.__entries.clear()
-        entries = self.__parser.parse_files(files)
-        for entry in entries:
-            self.__entries[entry.name] = entry
-        self.__ui.entries.set_entries(entries)
-        self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
+        self.__entries.extend(self.__parser.parse_files(files))
+        self.__ui.entries.set_entries(self.__entries)
+        self.__ui.canvas.set_entries(self.__entries,
+                                     self.__entry_type.y_headers[0])
         self.__ui.canvas.display_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
