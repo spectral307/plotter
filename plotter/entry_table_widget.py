@@ -6,7 +6,6 @@ from PyQt6.QtWidgets import (
 from .entry import Entry
 
 
-# pylint: disable-next=too-few-public-methods
 class EntryTableWidget(QTableWidget):
     entry_toggled = pyqtSignal(str, bool)
 
