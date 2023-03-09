@@ -17,12 +17,8 @@ class EntryTableWidget(QTableWidget):
 
     def set_entries(self, entries: list[Entry]):
         self.__clear()
-        try:
-            for entry in entries:
-                self.__append_entry(entry)
-        except ValueError:
-            self.__clear()
-            raise
+        for entry in entries:
+            self.__append_entry(entry)
         self.resizeColumnsToContents()
 
     def __append_entry(self, entry: Entry):
