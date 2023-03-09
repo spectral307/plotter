@@ -52,6 +52,8 @@
     </property>
     <addaction name="open_files"/>
     <addaction name="open_folder"/>
+    <addaction name="add_files"/>
+    <addaction name="add_folder"/>
     <addaction name="separator"/>
     <addaction name="exit_app"/>
    </widget>
@@ -77,6 +79,16 @@
   <action name="exit_app">
    <property name="text">
     <string>Выход</string>
+   </property>
+  </action>
+  <action name="add_files">
+   <property name="text">
+    <string>Добавить файлы...</string>
+   </property>
+  </action>
+  <action name="add_folder">
+   <property name="text">
+    <string>Добавить папку...</string>
    </property>
   </action>
  </widget>
