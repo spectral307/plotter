@@ -41,9 +41,6 @@ class EntryCanvas(QWidget):
 
     def append_entries(self, entries: list[Entry]):
         for entry in entries:
-            if entry.name in self.__entry_items:
-                raise ValueError(
-                    f"cannot append duplicate entry: {entry.name}")
             self.__entry_items[entry.name] = {}
             self.__entry_items[entry.name]["entry"] = entry
             self.__entry_items[entry.name]["line"] = None
