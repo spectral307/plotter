@@ -30,6 +30,10 @@ class MainWindow(QMainWindow):
         self.__entry_type = FrequencyResponse
         self.__parser = GtlAfcExcelParser()
         self.__entries = EntryList[self.__entry_type]([], self.__entry_type)
+        self.__entries.connect_entries_added_handler(
+            self.__handle_entries_added)
+        self.__entries.connnect_entries_removed_handler(
+            self.__handle_entries_removed)
 
         self.__ui.entries.entry_toggled.connect(self.__handle_entry_toggled)
 
@@ -100,3 +104,9 @@ class MainWindow(QMainWindow):
             self.__ui.canvas.display_entry(entryname)
         else:
             self.__ui.canvas.hide_entry(entryname)
+
+    def __handle_entries_added(self, entries):
+        pass
+
+    def __handle_entries_removed(self, entries):
+        pass
