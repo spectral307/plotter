@@ -21,16 +21,11 @@ class EntryList(list[_T]):
 
     @overload
     def __setitem__(self, __i: SupportsIndex, __o: _T) -> None:
-        self.__validate_type(__o)
-        self.__validate_name(__o)
-        super().__setitem__(__i, __o)
+        ...
 
     @overload
     def __setitem__(self, __s: slice, __o: Iterable[_T]) -> None:
-        for item in __o:
-            self.__validate_type(item)
-            self.__validate_name(item)
-        super().__setitem__(__s, __o)
+        ...
 
     def __setitem__(self, __i, __o):
         if isinstance(__o, self.__entry_type):
