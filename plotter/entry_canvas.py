@@ -25,7 +25,7 @@ class EntryCanvas(QWidget):
         self.__axes.set_xscale("log")
 
         self.__y_header = None
-        self.__entry_items = {}
+        self.__entries = {}
 
     def set_entries(self, entries: list[Entry], y_header: DataHeader):
         self.clear_entries()
@@ -35,55 +35,53 @@ class EntryCanvas(QWidget):
     def set_y_header(self, y_header: DataHeader):
         if y_header != self.__y_header:
             self.__y_header = y_header
-            for entryname in self.__entry_items:
-                self.hide_entry(entryname, draw_idle=False)
-                self.display_entry(entryname, draw_idle=True)
+            for entry in self.__entries:
+                self.hide_entry(entry, draw_idle=False)
+                self.display_entry(entry, draw_idle=True)
 
     def append_entries(self, entries: list[Entry]):
         for entry in entries:
-            self.__entry_items[entry.name] = {}
-            self.__entry_items[entry.name]["entry"] = entry
-            self.__entry_items[entry.name]["line"] = None
-            self.__entry_items[entry.name]["color"] = None
+            self.__entries[entry] = {}
+            self.__entries[entry]["line"] = None
+            self.__entries[entry]["color"] = None
 
     def display_all_entries(self):
-        for entryname in self.__entry_items:
-            self.display_entry(entryname, draw_idle=False)
+        for entry in self.__entries:
+            self.display_entry(entry, draw_idle=False)
         self.__canvas.draw_idle()
 
     # pylint: disable-next=too-many-locals
-    def display_entry(self, entryname: str, draw_idle: bool = True):
-        if self.__entry_items[entryname]["line"] is None:
-            entry = self.__entry_items[entryname]["entry"]
+    def display_entry(self, entry: Entry, draw_idle: bool = True):
+        if self.__entries[entry]["line"] is None:
             x_data, y_data = entry.get_xy_data(self.__y_header)
-            if self.__entry_items[entryname]["color"] is None:
+            if self.__entries[entry]["color"] is None:
                 line, = self.__axes.plot(x_data, y_data)
-                self.__entry_items[entryname]["color"] = line.get_color()
+                self.__entries[entry]["color"] = line.get_color()
             else:
-                color = self.__entry_items[entryname]["color"]
+                color = self.__entries[entry]["color"]
                 line, = self.__axes.plot(x_data, y_data, color=color)
-            self.__entry_items[entryname]["line"] = line
+            self.__entries[entry]["line"] = line
             if draw_idle:
                 self.__canvas.draw_idle()
 
     def hide_all_entries(self):
-        for entryname in self.__entry_items:
-            self.hide_entry(entryname, draw_idle=False)
+        for entry in self.__entries:
+            self.hide_entry(entry, draw_idle=False)
         self.__canvas.draw_idle()
 
-    def hide_entry(self, entryname: str, draw_idle: bool = True):
-        self.__clear_line(entryname, draw_idle)
+    def hide_entry(self, entry: Entry, draw_idle: bool = True):
+        self.__clear_line(entry, draw_idle)
 
     def clear_entries(self):
-        for entryname in self.__entry_items:
-            self.__clear_line(entryname, draw_idle=False)
-        self.__entry_items.clear()
+        for entry in self.__entries:
+            self.__clear_line(entry, draw_idle=False)
+        self.__entries.clear()
         self.__canvas.draw_idle()
 
-    def __clear_line(self, entryname: str, draw_idle: bool = True):
-        line = self.__entry_items[entryname]["line"]
+    def __clear_line(self, entry: Entry, draw_idle: bool = True):
+        line = self.__entries[entry]["line"]
         if line is not None:
             self.__axes.lines.remove(line)
-            self.__entry_items[entryname]["line"] = None
+            self.__entries[entry]["line"] = None
             if draw_idle:
                 self.__canvas.draw_idle()

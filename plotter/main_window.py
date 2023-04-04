@@ -100,10 +100,11 @@ class MainWindow(QMainWindow):
         raise NotImplementedError()
 
     def __handle_entry_toggled(self, entryname, checked):
+        entry = self.__entries.get_by_name(entryname)
         if checked:
-            self.__ui.canvas.display_entry(entryname)
+            self.__ui.canvas.display_entry(entry)
         else:
-            self.__ui.canvas.hide_entry(entryname)
+            self.__ui.canvas.hide_entry(entry)
 
     def __handle_entries_added(self, entries):
         pass
