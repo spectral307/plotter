@@ -17,7 +17,7 @@ class Entry:
                            file: str,
                            sheet: str,
                            column_mapping: dict[DataHeader, str],
-                           name=None) \
+                           name="auto") \
             -> "Entry":
         file_basename = basename(file)
         root, ext = splitext(file_basename)
@@ -25,7 +25,9 @@ class Entry:
         if ext not in (".xlsx", ".xlsm"):
             raise ValueError(f"Excel file expected, got: {ext}")
 
-        if name is None:
+        if not name:
+            raise ValueError("'name' is invalid")
+        if name == "auto":
             name = root
 
         usecols = column_mapping[cls.x_header]
