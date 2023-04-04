@@ -10,8 +10,10 @@ from .entry import Entry
 
 # pylint: disable-next=too-many-public-methods
 class EntryCanvas(QWidget):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, initial_show_state: bool = True, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.__initial_show_state = initial_show_state
 
         self.__canvas = FigureCanvas(Figure())
         toolbar = NavigationToolbar2QT(self.__canvas, self)
@@ -44,6 +46,7 @@ class EntryCanvas(QWidget):
             self.__entries[entry] = {}
             self.__entries[entry]["line"] = None
             self.__entries[entry]["color"] = None
+            self.__entries[entry]["is_shown"] = self.__initial_show_state
 
     def display_all_entries(self):
         for entry in self.__entries:
