@@ -17,8 +17,8 @@ class Entry:
                            file: str,
                            sheet: str,
                            column_mapping: dict[DataHeader, str],
-                           header=0,
-                           name="auto") \
+                           header: int = 0,
+                           name: str = "auto") \
             -> "Entry":
         file_basename = basename(file)
         root, ext = splitext(file_basename)
