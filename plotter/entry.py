@@ -48,5 +48,5 @@ class Entry:
 
     def get_xy_data(self, y_header: DataHeader) -> tuple[pd.Series, pd.Series]:
         if y_header not in self.y_headers:
-            raise ValueError(f"y_header isn't in entry: {y_header}")
+            raise ValueError(f"no such y_header in entry: {y_header}")
         return self.data[self.x_header], self.data[y_header]
