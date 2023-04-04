@@ -17,6 +17,7 @@ class Entry:
                            file: str,
                            sheet: str,
                            column_mapping: dict[DataHeader, str],
+                           header=0,
                            name="auto") \
             -> "Entry":
         file_basename = basename(file)
@@ -32,13 +33,14 @@ class Entry:
 
         usecols = column_mapping[cls.x_header]
         names = [cls.x_header]
-        for header in cls.y_headers:
-            usecols += f",{column_mapping[header]}"
-            names.append(header)
+        for h in cls.y_headers:
+            usecols += f",{column_mapping[h]}"
+            names.append(h)
 
         data = pd.read_excel(
             file,
             sheet_name=sheet,
+            header=header,
             usecols=usecols,
             names=names)
 
