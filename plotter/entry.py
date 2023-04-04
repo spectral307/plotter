@@ -13,8 +13,11 @@ class Entry:
 
     @classmethod
     # pylint: disable-next=too-many-locals
-    def from_excel(cls, file: str, sheet: str,
-                   column_mapping: dict[DataHeader, str], name=None) \
+    def from_excel_columns(cls,
+                           file: str,
+                           sheet: str,
+                           column_mapping: dict[DataHeader, str],
+                           name=None) \
             -> "Entry":
         file_basename = basename(file)
         root, ext = splitext(file_basename)

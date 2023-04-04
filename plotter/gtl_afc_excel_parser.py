@@ -10,7 +10,8 @@ class GtlAfcExcelParser(Parser):
             FrequencyResponse.y_headers[0]: "F",
             FrequencyResponse.y_headers[1]: "G"
         }
-        return [FrequencyResponse.from_excel(file, "data", column_mapping)]
+        return [FrequencyResponse.from_excel_columns(
+            file, "data", column_mapping)]
 
     def parse_files(self, files: list[str]) -> list[Entry]:
         return [self.parse_file(file)[0] for file in files]
