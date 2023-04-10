@@ -38,8 +38,8 @@ class EntryCanvas(QWidget):
         if y_header != self.__y_header:
             self.__y_header = y_header
             for entry in self.__entries:
-                self.hide_entry(entry, draw_idle=False)
-                self.show_entry(entry, draw_idle=True)
+                self.__clear_line(entry, draw_idle=False)
+                self.__plot_line(entry, draw_idle=True)
 
     def append_entries(self, entries: list[Entry]):
         for entry in entries:
