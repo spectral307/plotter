@@ -53,19 +53,8 @@ class EntryCanvas(QWidget):
             self.show_entry(entry, draw_idle=False)
         self.__canvas.draw_idle()
 
-    # pylint: disable-next=too-many-locals
     def show_entry(self, entry: Entry, draw_idle: bool = True):
-        if self.__entries[entry]["line"] is None:
-            x_data, y_data = entry.get_xy_data(self.__y_header)
-            if self.__entries[entry]["color"] is None:
-                line, = self.__axes.plot(x_data, y_data)
-                self.__entries[entry]["color"] = line.get_color()
-            else:
-                color = self.__entries[entry]["color"]
-                line, = self.__axes.plot(x_data, y_data, color=color)
-            self.__entries[entry]["line"] = line
-            if draw_idle:
-                self.__canvas.draw_idle()
+        self.__plot_line(entry, draw_idle=draw_idle)
 
     def hide_all_entries(self):
         for entry in self.__entries:
@@ -80,6 +69,20 @@ class EntryCanvas(QWidget):
             self.__clear_line(entry, draw_idle=False)
         self.__entries.clear()
         self.__canvas.draw_idle()
+
+    # pylint: disable-next=too-many-locals
+    def __plot_line(self, entry: Entry, draw_idle: bool = True):
+        if self.__entries[entry]["line"] is None:
+            x_data, y_data = entry.get_xy_data(self.__y_header)
+            if self.__entries[entry]["color"] is None:
+                line, = self.__axes.plot(x_data, y_data)
+                self.__entries[entry]["color"] = line.get_color()
+            else:
+                color = self.__entries[entry]["color"]
+                line, = self.__axes.plot(x_data, y_data, color=color)
+            self.__entries[entry]["line"] = line
+            if draw_idle:
+                self.__canvas.draw_idle()
 
     def __clear_line(self, entry: Entry, draw_idle: bool = True):
         line = self.__entries[entry]["line"]
