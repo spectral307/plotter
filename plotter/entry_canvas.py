@@ -6,6 +6,7 @@ from matplotlib.backends.backend_qtagg import (
 from PyQt6.QtWidgets import QVBoxLayout, QWidget
 from .data_header import DataHeader
 from .entry import Entry
+from typing import Any
 
 
 # pylint: disable-next=too-many-public-methods
@@ -27,7 +28,7 @@ class EntryCanvas(QWidget):
         self.__axes.set_xscale("log")
 
         self.__y_header = None
-        self.__entries = {}
+        self.__entries: dict[Entry, dict[str, Any]] = {}
 
     def set_entries(self, entries: list[Entry], y_header: DataHeader):
         self.clear_entries()
