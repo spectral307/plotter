@@ -38,8 +38,8 @@ class EntryCanvas(QWidget):
         if y_header != self.__y_header:
             self.__y_header = y_header
             for entry in self.__entries:
-                self.__clear_line(entry, draw_idle=False)
-                self.__plot_line(entry, draw_idle=True)
+                self.__clear_entry_line(entry, draw_idle=False)
+                self.__plot_entry_line(entry, draw_idle=True)
 
     def append_entries(self, entries: list[Entry]):
         for entry in entries:
@@ -54,7 +54,7 @@ class EntryCanvas(QWidget):
         self.__canvas.draw_idle()
 
     def show_entry(self, entry: Entry, draw_idle: bool = True):
-        self.__plot_line(entry, draw_idle=draw_idle)
+        self.__plot_entry_line(entry, draw_idle=draw_idle)
 
     def hide_all_entries(self):
         for entry in self.__entries:
@@ -62,16 +62,16 @@ class EntryCanvas(QWidget):
         self.__canvas.draw_idle()
 
     def hide_entry(self, entry: Entry, draw_idle: bool = True):
-        self.__clear_line(entry, draw_idle)
+        self.__clear_entry_line(entry, draw_idle)
 
     def clear_entries(self):
         for entry in self.__entries:
-            self.__clear_line(entry, draw_idle=False)
+            self.__clear_entry_line(entry, draw_idle=False)
         self.__entries.clear()
         self.__canvas.draw_idle()
 
     # pylint: disable-next=too-many-locals
-    def __plot_line(self, entry: Entry, draw_idle: bool = True):
+    def __plot_entry_line(self, entry: Entry, draw_idle: bool = True):
         if self.__entries[entry]["line"] is None:
             x_data, y_data = entry.get_xy_data(self.__y_header)
             if self.__entries[entry]["color"] is None:
@@ -84,7 +84,7 @@ class EntryCanvas(QWidget):
             if draw_idle:
                 self.__canvas.draw_idle()
 
-    def __clear_line(self, entry: Entry, draw_idle: bool = True):
+    def __clear_entry_line(self, entry: Entry, draw_idle: bool = True):
         line = self.__entries[entry]["line"]
         if line is not None:
             self.__axes.lines.remove(line)
