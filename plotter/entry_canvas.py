@@ -1,3 +1,4 @@
+from typing import Any
 from matplotlib.figure import Figure
 # pylint: disable-next=no-name-in-module
 from matplotlib.backends.backend_qtagg import (
@@ -6,7 +7,6 @@ from matplotlib.backends.backend_qtagg import (
 from PyQt6.QtWidgets import QVBoxLayout, QWidget
 from .data_header import DataHeader
 from .entry import Entry
-from typing import Any
 
 
 # pylint: disable-next=too-many-public-methods
@@ -33,10 +33,14 @@ class EntryCanvas(QWidget):
     def set_entries(self, entries: list[Entry], y_header: DataHeader):
         self.clear_entries()
         self.append_entries(entries)
+        if self.__y_header is None:
+            raise AttributeError()
         self.__y_header = y_header
 
     def set_y_header(self, y_header: DataHeader):
         if y_header != self.__y_header:
+            if self.__y_header is None:
+                raise AttributeError()
             self.__y_header = y_header
             for entry in self.__entries:
                 self.__clear_entry_line(entry, draw_idle=False)
@@ -74,6 +78,8 @@ class EntryCanvas(QWidget):
     # pylint: disable-next=too-many-locals
     def __plot_entry_line(self, entry: Entry, draw_idle: bool = True):
         if self.__entries[entry]["line"] is None:
+            if self.__y_header is None:
+                raise AttributeError()
             x_data, y_data = entry.get_xy_data(self.__y_header)
             if self.__entries[entry]["color"] is None:
                 line, = self.__axes.plot(x_data, y_data)

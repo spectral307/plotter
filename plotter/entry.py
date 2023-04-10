@@ -12,7 +12,7 @@ class Entry:
         self.data = data
 
     @classmethod
-    # pylint: disable-next=too-many-locals
+    # pylint: disable-next=too-many-locals, too-many-arguments
     def from_excel_columns(cls,
                            file: str,
                            sheet: str,
@@ -33,9 +33,9 @@ class Entry:
 
         usecols = column_mapping[cls.x_header]
         names = [cls.x_header]
-        for h in cls.y_headers:
-            usecols += f",{column_mapping[h]}"
-            names.append(h)
+        for y_header in cls.y_headers:
+            usecols += f",{column_mapping[y_header]}"
+            names.append(y_header)
 
         data = pd.read_excel(
             file,
