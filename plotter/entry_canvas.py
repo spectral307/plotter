@@ -39,7 +39,7 @@ class EntryCanvas(QWidget):
             self.__y_header = y_header
             for entry in self.__entries:
                 self.hide_entry(entry, draw_idle=False)
-                self.display_entry(entry, draw_idle=True)
+                self.show_entry(entry, draw_idle=True)
 
     def append_entries(self, entries: list[Entry]):
         for entry in entries:
@@ -48,13 +48,13 @@ class EntryCanvas(QWidget):
             self.__entries[entry]["color"] = None
             self.__entries[entry]["is_shown"] = self.__initial_show_state
 
-    def display_all_entries(self):
+    def show_all_entries(self):
         for entry in self.__entries:
-            self.display_entry(entry, draw_idle=False)
+            self.show_entry(entry, draw_idle=False)
         self.__canvas.draw_idle()
 
     # pylint: disable-next=too-many-locals
-    def display_entry(self, entry: Entry, draw_idle: bool = True):
+    def show_entry(self, entry: Entry, draw_idle: bool = True):
         if self.__entries[entry]["line"] is None:
             x_data, y_data = entry.get_xy_data(self.__y_header)
             if self.__entries[entry]["color"] is None:

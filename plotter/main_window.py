@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
-        self.__ui.canvas.display_all_entries()
+        self.__ui.canvas.show_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     # pylint: disable-next=too-many-locals
@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
-        self.__ui.canvas.display_all_entries()
+        self.__ui.canvas.show_all_entries()
         self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     def add_files(self):
@@ -102,7 +102,7 @@ class MainWindow(QMainWindow):
     def __handle_entry_toggled(self, entryname, checked):
         entry = self.__entries.get_by_name(entryname)
         if checked:
-            self.__ui.canvas.display_entry(entry)
+            self.__ui.canvas.show_entry(entry)
         else:
             self.__ui.canvas.hide_entry(entry)
 
