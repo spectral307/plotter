@@ -27,20 +27,16 @@ class EntryCanvas(QWidget):
         self.__axes.grid()
         self.__axes.set_xscale("log")
 
-        self.__y_header = None
+        self.__y_header: Any = None
         self.__entries: dict[Entry, dict[str, Any]] = {}
 
     def set_entries(self, entries: list[Entry], y_header: DataHeader):
         self.clear_entries()
         self.append_entries(entries)
-        if self.__y_header is None:
-            raise AttributeError()
         self.__y_header = y_header
 
     def set_y_header(self, y_header: DataHeader):
         if y_header != self.__y_header:
-            if self.__y_header is None:
-                raise AttributeError()
             self.__y_header = y_header
             for entry in self.__entries:
                 self.__clear_entry_line(entry, draw_idle=False)
