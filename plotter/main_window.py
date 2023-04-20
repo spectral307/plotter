@@ -60,8 +60,6 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
-        self.__ui.canvas.show_all_entries()
-        self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     # pylint: disable-next=too-many-locals
     def open_folder(self):
@@ -90,8 +88,6 @@ class MainWindow(QMainWindow):
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
-        self.__ui.canvas.show_all_entries()
-        self.__ui.canvas.set_y_header(self.__entry_type.y_headers[1])
 
     def add_files(self):
         raise NotImplementedError()

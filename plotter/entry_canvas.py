@@ -32,8 +32,8 @@ class EntryCanvas(QWidget):
 
     def set_entries(self, entries: list[Entry], y_header: DataHeader):
         self.clear_entries()
-        self.append_entries(entries)
         self.__y_header = y_header
+        self.append_entries(entries)
 
     def set_y_header(self, y_header: DataHeader):
         if y_header != self.__y_header:
@@ -43,11 +43,15 @@ class EntryCanvas(QWidget):
                 self.__plot_entry_line(entry, draw_idle=True)
 
     def append_entries(self, entries: list[Entry]):
+        if self.__y_header is None:
+            self.__y_header = entries[0].y_headers[0]
         for entry in entries:
             self.__entries[entry] = {}
             self.__entries[entry]["line"] = None
             self.__entries[entry]["color"] = None
             self.__entries[entry]["is_shown"] = self.__initial_show_state
+            if self.__initial_show_state:
+                self.__plot_entry_line(entry, draw_idle=True)
 
     def show_all_entries(self):
         for entry in self.__entries:
