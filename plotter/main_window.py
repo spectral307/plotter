@@ -56,7 +56,8 @@ class MainWindow(QMainWindow):
             settings.setValue("last_dir", new_directory)
 
         self.__entries.clear()
-        self.__entries.extend(self.__parser.parse_files(files))
+        entries = self.__parser.parse_files(files)
+        self.__entries.extend(entries)
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
