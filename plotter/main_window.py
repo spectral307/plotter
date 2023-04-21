@@ -60,18 +60,15 @@ class MainWindow(QMainWindow):
 
     # pylint: disable-next=too-many-locals
     def open_folder(self):
-        caption = "Открыть папку"
         settings = QSettings()
         directory = settings.value("last_dir")
-        folder = QFileDialog.getExistingDirectory(
-            self, caption, directory)
-        if not folder:
+        filefilter = "*.*"
+
+        files = self.__get_all_files(directory, filefilter)
+        if not files:
             return
 
-        pathname = join(folder, "*.*")
-        files = glob(pathname)
-
-        new_directory = dirname(folder)
+        new_directory = dirname(files[0])
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
@@ -83,6 +80,15 @@ class MainWindow(QMainWindow):
 
     def add_folder(self):
         raise NotImplementedError()
+
+    def __get_all_files(self, directory: str, filefilter: str) -> list[str]:
+        caption = "Открыть папку"
+        folder = QFileDialog.getExistingDirectory(self, caption, directory)
+        if not folder:
+            return []
+        pathname = join(folder, filefilter)
+        files = glob(pathname)
+        return files
 
     def __select_files(self, directory: str, filefilter: str) -> list[str]:
         caption = "Открыть файлы"
