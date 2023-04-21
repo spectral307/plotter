@@ -92,7 +92,20 @@ class MainWindow(QMainWindow):
         self.__append_entries_for_display(entries)
 
     def add_folder(self):
-        raise NotImplementedError()
+        settings = QSettings()
+        directory = settings.value("last_dir")
+        filefilter = "*.*"
+
+        files = self.__get_all_files(directory, filefilter)
+        if not files:
+            return
+
+        new_directory = dirname(files[0])
+        if new_directory != directory:
+            settings.setValue("last_dir", new_directory)
+
+        entries = self.__parser.parse_files(files)
+        self.__append_entries_for_display(entries)
 
     def __append_entries_for_display(self, entries: list[Entry]) -> None:
         self.__entries.extend(entries)
