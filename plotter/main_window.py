@@ -8,6 +8,7 @@ from .entry_canvas import EntryCanvas
 from .frequency_response import FrequencyResponse
 from .gtl_afc_excel_parser import GtlAfcExcelParser
 from .ui_main_window import Ui_MainWindow
+from .entry import Entry
 from .entry_list import EntryList
 
 
@@ -55,12 +56,8 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        self.__entries.clear()
         entries = self.__parser.parse_files(files)
-        self.__entries.extend(entries)
-        self.__ui.entries.set_entries(self.__entries)
-        self.__ui.canvas.set_entries(self.__entries,
-                                     self.__entry_type.y_headers[0])
+        self.__set_entries_for_display(entries)
 
     # pylint: disable-next=too-many-locals
     def open_folder(self):
@@ -79,18 +76,20 @@ class MainWindow(QMainWindow):
         if new_directory != directory:
             settings.setValue("last_dir", new_directory)
 
-        self.__entries.clear()
         entries = self.__parser.parse_files(files)
-        self.__entries.extend(entries)
-        self.__ui.entries.set_entries(self.__entries)
-        self.__ui.canvas.set_entries(self.__entries,
-                                     self.__entry_type.y_headers[0])
+        self.__set_entries_for_display(entries)
 
     def add_files(self):
         raise NotImplementedError()
 
     def add_folder(self):
         raise NotImplementedError()
+
+    def __set_entries_for_display(self, entries: list[Entry]) -> None:
+        self.__entries.clear()
+        self.__entries.extend(entries)
+        self.__ui.entries.set_entries(entries)
+        self.__ui.canvas.set_entries(entries, self.__entry_type.y_headers[0])
 
     def __handle_entry_toggled(self, entryname, checked):
         entry = self.__entries.get_by_name(entryname)
