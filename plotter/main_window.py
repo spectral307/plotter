@@ -41,7 +41,6 @@ class MainWindow(QMainWindow):
     def exit_app(self):
         QApplication.quit()
 
-    # pylint: disable-next=too-many-locals
     def open_files(self):
         settings = QSettings()
         directory = settings.value("last_dir")
@@ -58,7 +57,6 @@ class MainWindow(QMainWindow):
         entries = self.__parser.parse_files(files)
         self.__set_entries_for_display(entries)
 
-    # pylint: disable-next=too-many-locals
     def open_folder(self):
         settings = QSettings()
         directory = settings.value("last_dir")
