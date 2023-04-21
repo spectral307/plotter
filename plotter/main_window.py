@@ -76,10 +76,28 @@ class MainWindow(QMainWindow):
         self.__set_entries_for_display(entries)
 
     def add_files(self):
-        raise NotImplementedError()
+        settings = QSettings()
+        directory = settings.value("last_dir")
+        filefilter = "Все файлы (*.*)"
+
+        files = self.__select_files(directory, filefilter)
+        if not files:
+            return
+
+        new_directory = dirname(files[0])
+        if new_directory != directory:
+            settings.setValue("last_dir", new_directory)
+
+        entries = self.__parser.parse_files(files)
+        self.__append_entries_for_display(entries)
 
     def add_folder(self):
         raise NotImplementedError()
+
+    def __append_entries_for_display(self, entries: list[Entry]) -> None:
+        self.__entries.extend(entries)
+        self.__ui.entries.append_entries(entries)
+        self.__ui.canvas.append_entries(entries)
 
     def __get_all_files(self, directory: str, filefilter: str) -> list[str]:
         caption = "Открыть папку"
