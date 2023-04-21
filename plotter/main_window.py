@@ -43,12 +43,11 @@ class MainWindow(QMainWindow):
 
     # pylint: disable-next=too-many-locals
     def open_files(self):
-        caption = "Открыть файлы"
         settings = QSettings()
         directory = settings.value("last_dir")
         filefilter = "Все файлы (*.*)"
-        files, _ = QFileDialog.getOpenFileNames(
-            self, caption, directory, filefilter)
+
+        files = self.__select_files(directory, filefilter)
         if not files:
             return
 
@@ -84,6 +83,12 @@ class MainWindow(QMainWindow):
 
     def add_folder(self):
         raise NotImplementedError()
+
+    def __select_files(self, directory: str, filefilter: str) -> list[str]:
+        caption = "Открыть файлы"
+        files, _ = QFileDialog.getOpenFileNames(
+            self, caption, directory, filefilter)
+        return files
 
     def __set_entries_for_display(self, entries: list[Entry]) -> None:
         self.__entries.clear()
