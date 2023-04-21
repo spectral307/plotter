@@ -80,11 +80,7 @@ class MainWindow(QMainWindow):
 
         self.__entries.clear()
         entries = self.__parser.parse_files(files)
-        for entry in entries:
-            self.__entries[entry.name] = entry
-
-        self.__entries.clear()
-        self.__entries.extend(self.__parser.parse_files(files))
+        self.__entries.extend(entries)
         self.__ui.entries.set_entries(self.__entries)
         self.__ui.canvas.set_entries(self.__entries,
                                      self.__entry_type.y_headers[0])
